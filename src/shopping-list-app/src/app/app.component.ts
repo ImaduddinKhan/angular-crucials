@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'shopping-list-app';
+    navbarFeature = 'recipe';
+
+    constructor(){
+        
+    }
+
+    onNavigate(navFeature: string){
+        this.navbarFeature = navFeature;
+    }
 }
