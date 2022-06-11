@@ -4,20 +4,20 @@
 
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-            <li><a class="nav-link" href="#/recipe" (click)="onSelect('recipe')">Recipe</a></li>
-            <li><a class="nav-link" href="#/shopping-list" (click)="onSelect('shopping-list')">Shopping List</a></li>
+            <li><a routerLinkActive="active" routerLink="/recipes" class="nav-link">Recipe</a></li>
+            <li><a routerLinkActive="active" routerLink="/shopping-list" class="nav-link">Shopping List</a></li>
         </ul>
         <ul class="nav navbar-nav ms-auto">
             <li class="nav-item dropdown" appDropdown>
                 <a 
-                    href="#" 
+                    style="cursor: pointer;"
                     class="nav-link dropdown-toggle" 
                     role="button" data-bs-toggle="dropdown"
                     id="navbarDropdown"
                     >Manage <span class="caret"></span></a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Save Data</a></li>
-                        <li><a class="dropdown-item" href="#">Fetch Data</a></li>
+                        <li><a class="dropdown-item">Save Data</a></li>
+                        <li><a class="dropdown-item">Fetch Data</a></li>
                     </ul>
             </li>
         </ul>
