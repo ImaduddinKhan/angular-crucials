@@ -6,11 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  navbarFeature = 'recipe';
-
   constructor() {}
-
-  onNavigate(navFeature: string) {
-    this.navbarFeature = navFeature;
-  }
 }
