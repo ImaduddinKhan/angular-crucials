@@ -8,13 +8,16 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   genders = ['Male', 'Female'];
-
   signUpForm: FormGroup;
+  forbiddenUserNames = ['Anna', 'Soha'];
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
       userData: new FormGroup({
-        username: new FormControl(null, Validators.required),
+        username: new FormControl(null, [
+          Validators.required,
+          this.forbiddenNames.bind(this),
+        ]),
         email: new FormControl(null, [Validators.required, Validators.email]),
       }),
       gender: new FormControl('Male'),
@@ -37,6 +40,14 @@ export class AppComponent implements OnInit {
   onAddHobby() {
     const control = new FormControl(null, Validators.required);
     (<FormArray>this.signUpForm.get('hobbies')).push(control);
+  }
+
+  //Creating Custom Form Validator
+  forbiddenNames(control: FormControl): { [s: string]: boolean } {
+    if (this.forbiddenUserNames.indexOf(control.value) !== -1) {
+      return { nameIsForbidden: true };
+    }
+    return null;
   }
 
   // Template Driven Approach <start>

@@ -13,8 +13,15 @@
               formControlName="username"
               class="form-control">
             <span 
-              class="help-block" 
-              *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched">Enter valid username!</span>
+              class="help-block"
+              *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched">
+              <span 
+              class="help-block"
+              *ngIf="signUpForm.get('userData.username').errors['nameIsForbidden']">This user is Forbidden!</span>
+              <span 
+              class="help-block"
+              *ngIf="signUpForm.get('userData.username').errors['required']">Enter a valid Username</span>
+            </span>
           </div>
           <div class="form-group">
             <label for="email">email</label>
@@ -52,8 +59,8 @@
             *ngFor="let hobbyControl of controls; let i=index">
             <input type="text" class="form-control" [formControlName]="i">
           </div>
-          <span class="help-block" *ngIf="!signUpForm.valid && signUpForm.touched">Invalid Form!</span>
         </div>
+        <span class="help-block" *ngIf="!signUpForm.valid && signUpForm.touched">Invalid Form!</span>
         <button 
           class="btn btn-primary" 
           type="submit">Submit</button>
