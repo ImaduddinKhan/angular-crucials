@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +10,33 @@ export class AppComponent implements OnInit {
   genders = ['Male', 'Female'];
 
   signUpForm: FormGroup;
-  constructor() {}
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
-      username: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      userData: new FormGroup({
+        username: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+      }),
       gender: new FormControl('Male'),
+      hobbies: new FormArray([]),
     });
   }
 
   onSubmit() {
     console.log(this.signUpForm);
+  }
+
+  getControls() {
+    return (<FormArray>this.signUpForm.get('hobbies')).controls;
+  }
+  //OR
+  get controls() {
+    return (this.signUpForm.get('hobbies') as FormArray).controls;
+  }
+
+  onAddHobby() {
+    const control = new FormControl(null, Validators.required);
+    (<FormArray>this.signUpForm.get('hobbies')).push(control);
   }
 
   // Template Driven Approach <start>
