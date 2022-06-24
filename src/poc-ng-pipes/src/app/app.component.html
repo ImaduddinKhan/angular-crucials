@@ -7,10 +7,13 @@
           *ngFor="let server of servers"
           [ngClass]="getStatusClasses(server)">
           <span
-            class="badge rounded-pill bg-secondary">
+            class="badge rounded-pill bg-secondary float">
             {{ server.status }}
           </span>
-          <strong>{{ server.name }}</strong> | {{ server.instanceType }} | {{ server.started }}
+          <strong>
+            {{ server.name }}</strong> | 
+            {{ server.instanceType | uppercase  }} | 
+            {{ server.started | date:'fullDate' }}
         </li>
       </ul>
     </div>
