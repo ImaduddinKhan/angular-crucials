@@ -9,7 +9,8 @@ import { Post } from './post.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
+  fetchingPosts = false;
 
   constructor(private http: HttpClient) {}
 
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts() {
+    this.fetchingPosts = true;
     this.http
       .get(
         'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
@@ -55,7 +57,9 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe((posts) => {
-        console.log(posts);
+        // console.log(posts);
+        this.fetchingPosts = false;
+        this.loadedPosts = posts;
       });
   }
 }
