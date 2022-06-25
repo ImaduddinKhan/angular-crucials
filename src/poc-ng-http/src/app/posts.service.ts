@@ -1,7 +1,12 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEventType,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Post } from './post.model';
 
 @Injectable({
@@ -18,7 +23,11 @@ export class PostsService {
     this.http
       .post<{ name: string }>(
         'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
-        postData
+        postData,
+        {
+          observe: 'response',
+          responseType: 'json',
+        }
       )
       .subscribe(
         (resposeData) => {
@@ -35,11 +44,12 @@ export class PostsService {
     searchParams = searchParams.append('print', 'pretty'); // These params prints the response in pretty style
     searchParams = searchParams.append('custom', 'key'); //These ara not supported by firebase, its just example of multi params
     return this.http
-      .get(
+      .get<{ [key: string]: Post }>(
         'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
         {
           headers: new HttpHeaders({ 'Custom-Header': 'Bismillah' }),
           params: searchParams,
+          responseType: 'json',
         }
       )
       .pipe(
@@ -59,8 +69,21 @@ export class PostsService {
   }
 
   deletePosts() {
-    return this.http.delete(
-      'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
-    );
+    return this.http
+      .delete(
+        'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
+        {
+          observe: 'events',
+          responseType: 'text',
+        }
+      )
+      .pipe(
+        tap((event) => {
+          console.log(event);
+          if (event.type === HttpEventType.Response) {
+            console.log(event.body);
+          }
+        })
+      );
   }
 }
