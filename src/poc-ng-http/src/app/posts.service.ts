@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Post } from './post.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
+  error = new Subject<string>();
+
   constructor(private http: HttpClient) {}
 
   createPost(title: string, content: string) {
@@ -17,9 +20,14 @@ export class PostsService {
         'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
         postData
       )
-      .subscribe((resposeData) => {
-        console.log(resposeData);
-      });
+      .subscribe(
+        (resposeData) => {
+          console.log(resposeData);
+        },
+        (error) => {
+          this.error.next(error.message);
+        }
+      );
   }
 
   getPosts() {
@@ -36,6 +44,9 @@ export class PostsService {
             }
           }
           return postArray;
+        }),
+        catchError((errorRes) => {
+          return throwError(errorRes);
         })
       );
   }
