@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -31,9 +31,16 @@ export class PostsService {
   }
 
   getPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty'); // These params prints the response in pretty style
+    searchParams = searchParams.append('custom', 'key'); //These ara not supported by firebase, its just example of multi params
     return this.http
       .get(
-        'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
+        'https://ng-restful-guide-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
+        {
+          headers: new HttpHeaders({ 'Custom-Header': 'Bismillah' }),
+          params: searchParams,
+        }
       )
       .pipe(
         map((responseData: { [key: string]: Post }) => {
