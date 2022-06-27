@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Recipe } from '../recipes/recipe.model';
 
 import { RecipeService } from '../recipes/recipe.service';
@@ -35,9 +36,19 @@ export class DataStorageService {
             };
           });
         }),
-
         tap((recipes) => {
           this.recipeService.setRecipes(recipes);
+        }),
+        catchError((errorRes) => {
+          let errorMsg = 'An unknown error occured';
+          if (!errorRes.error || !errorRes.error.error) {
+            return throwError(errorMsg);
+          }
+          switch (errorRes.error.error.message) {
+            case 'Permission denied':
+              errorMsg = 'You are Unauthorized';
+          }
+          return throwError(errorMsg);
         })
       );
   }
