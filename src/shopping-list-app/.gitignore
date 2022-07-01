@@ -100,5 +100,5 @@ baseline.json
 # Husky
 .husky/_
 
-src/shopping-list-app/src/keys.ts
+/src/app/keys.ts
 
