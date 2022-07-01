@@ -6,6 +6,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 
 @NgModule({
   providers: [
+    // LoggingService,
     ShoppingListService,
     RecipeService,
     {
