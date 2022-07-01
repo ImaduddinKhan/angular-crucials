@@ -50,6 +50,7 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
     }
   }
+  //git
 
   autoLogout(expirationDuration: number) {
     console.log(expirationDuration);
