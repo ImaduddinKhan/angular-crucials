@@ -10,13 +10,18 @@ html {
     color: #f5f3f3;
   }
   
-  .test {
+  a {
     text-decoration: none;
     color: #b499f9;
     font-weight: bold;
   }
   
-  .test:hover {
+  a:hover {
     color: #a382f7;
+  }
+  .test {
+    text-decoration: none;
+    color: #b499f9;
+    font-weight: bold;
   }
   
