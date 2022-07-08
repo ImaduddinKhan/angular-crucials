@@ -1,12 +1,24 @@
 import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './shopping-list.actions';
 
-const initState = {
+export interface State {
+  ingredients: Ingredient[];
+  editedIngredient: Ingredient;
+  editedIngredientIndex: number;
+}
+
+export interface AppState {
+  shoppingList: State;
+}
+
+const initState: State = {
   ingredients: [new Ingredient('Apples', 3), new Ingredient('Mangos', 4)],
+  editedIngredient: null,
+  editedIngredientIndex: -1,
 };
 
 export function shoppingListReducer(
-  state = initState,
+  state: State = initState,
   action: ShoppingListActions.ShoppingListActions
 ) {
   switch (action.type) {
@@ -19,6 +31,39 @@ export function shoppingListReducer(
       return {
         ...state,
         ingredients: [...state.ingredients, ...action.payload],
+      };
+    case ShoppingListActions.UPDATE_INGREDIENT:
+      const ingredient = state.ingredients[state.editedIngredientIndex];
+      const updatedIngredient = {
+        ...ingredient,
+        ...action.payload,
+      };
+      const updatedIngredients = [...state.ingredients];
+      updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
+      return {
+        ...state,
+        ingredients: updatedIngredients,
+        editedIngredientIndex: -1,
+        editedIngredient: null,
+      };
+    case ShoppingListActions.DELETE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter((ing, ingIndex) => {
+          return ingIndex !== state.editedIngredientIndex;
+        }),
+      };
+    case ShoppingListActions.START_EDIT:
+      return {
+        ...state,
+        editedIngredientIndex: action.payload,
+        editedIngredient: { ...state.ingredients[action.payload] },
+      };
+    case ShoppingListActions.STOP_EDIT:
+      return {
+        ...state,
+        editedIngredient: null,
+        editedIngredientIndex: -1,
       };
     default:
       return state;
