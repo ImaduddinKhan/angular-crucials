@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "poc-ng-pwa": {
+    "poc-ng-testing": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,15 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/poc-ng-pwa",
+            "outputPath": "dist/poc-ng-testing",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -33,9 +32,7 @@
             ],
             "scripts": [
                 "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            ]
           },
           "configurations": {
             "production": {
@@ -74,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "poc-ng-pwa:build:production"
+              "browserTarget": "poc-ng-testing:build:production"
             },
             "development": {
-              "browserTarget": "poc-ng-pwa:build:development"
+              "browserTarget": "poc-ng-testing:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -85,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "poc-ng-pwa:build"
+            "browserTarget": "poc-ng-testing:build"
           }
         },
         "test": {
@@ -97,8 +94,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
@@ -109,5 +105,5 @@
       }
     }
   },
-  "defaultProject": "poc-ng-pwa"
+  "defaultProject": "poc-ng-testing"
 }

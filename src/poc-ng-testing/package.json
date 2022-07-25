@@ -1,5 +1,5 @@
 {
-  "name": "poc-ng-pwa",
+  "name": "poc-ng-testing",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -17,10 +17,7 @@
     "@angular/forms": "~13.3.0",
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
-    "@angular/pwa": "^14.1.0",
     "@angular/router": "~13.3.0",
-    "@angular/service-worker": "~13.3.0",
-    "@schematics/angular": "^9.1.12",
     "bootstrap": "^5.2.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
