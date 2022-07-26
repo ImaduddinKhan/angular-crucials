@@ -3,5 +3,101 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "angular-config": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/angular-config",
+      "sourceRoot": "projects/angular-config/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/angular-config",
+            "index": "projects/angular-config/src/index.html",
+            "main": "projects/angular-config/src/main.ts",
+            "polyfills": "projects/angular-config/src/polyfills.ts",
+            "tsConfig": "projects/angular-config/tsconfig.app.json",
+            "assets": [
+              "projects/angular-config/src/favicon.ico",
+              "projects/angular-config/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "projects/angular-config/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/angular-config/src/environments/environment.ts",
+                  "with": "projects/angular-config/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-config:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-config:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "angular-config:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-config/src/test.ts",
+            "polyfills": "projects/angular-config/src/polyfills.ts",
+            "tsConfig": "projects/angular-config/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-config/karma.conf.js",
+            "assets": [
+              "projects/angular-config/src/favicon.ico",
+              "projects/angular-config/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "projects/angular-config/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
   }
 }
