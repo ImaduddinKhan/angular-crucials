@@ -105,6 +105,16 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "angular-config:build:production",
+            "firebaseProject": "ng-config1578654",
+            "firebaseHostingSite": "ng-config1578654"
+          }
         }
       }
     }
